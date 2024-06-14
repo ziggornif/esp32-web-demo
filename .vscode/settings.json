@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "iomanip": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "system_error": "cpp",
+        "regex": "cpp"
     }
 }

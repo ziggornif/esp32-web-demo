@@ -3,21 +3,25 @@
 #include <ESPAsyncWebServer.h>
 
 #include "home.h"
-#include "wifi.h"
+#include "spiffs_setup.h"
 #include "wifi_info.h"
+#include "wifi_setup.h"
 
 AsyncWebServer server(80);
 
 void setup() {
   Serial.begin(115200);
-  setup_wifi();
+  int wrcode = setup_wifi();
+  if (wrcode == 1) {
+    ESP.restart();
+  }
 
-  // Initialize webserver URLs
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-    AsyncResponseStream *response = get_homepage(request);
-    request->send(response);
-  });
+  int srcode = setup_spiffs();
+  if (srcode == 1) {
+    ESP.restart();
+  }
 
+  get_homepage(server);
   get_wifi_infos(server);
 
   // Start webserver

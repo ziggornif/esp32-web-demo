@@ -3,6 +3,8 @@
 
 #include <ESPAsyncWebServer.h>
 
-AsyncResponseStream *get_homepage(AsyncWebServerRequest *request);
+#include "SPIFFS.h"
+
+void get_homepage(AsyncWebServer& server);
 
 #endif
